@@ -8,6 +8,20 @@ import net.minecraft.server.v1_6_R2.*;
 public class SBiomeDecorator extends BiomeDecorator {
     public SBiomeDecorator(BiomeBase biomeBase) {
         super(biomeBase);
+
+        // Clone values from previous decorator
+        this.A = ReflectionUtil.getProtectedValue(biomeBase.I, "A");
+        this.B = ReflectionUtil.getProtectedValue(biomeBase.I, "B");
+        this.C = ReflectionUtil.getProtectedValue(biomeBase.I, "C");
+        this.D = ReflectionUtil.getProtectedValue(biomeBase.I, "D");
+        this.E = ReflectionUtil.getProtectedValue(biomeBase.I, "E");
+        this.F = ReflectionUtil.getProtectedValue(biomeBase.I, "F");
+        this.G = ReflectionUtil.getProtectedValue(biomeBase.I, "G");
+        this.H = ReflectionUtil.getProtectedValue(biomeBase.I, "H");
+        this.I = ReflectionUtil.getProtectedValue(biomeBase.I, "I");
+        this.J = ReflectionUtil.getProtectedValue(biomeBase.I, "J");
+        this.y = ReflectionUtil.getProtectedValue(biomeBase.I, "y");
+        this.z = ReflectionUtil.getProtectedValue(biomeBase.I, "z");
     }
 
     @Override
@@ -21,19 +35,19 @@ public class SBiomeDecorator extends BiomeDecorator {
         for (i = 0; i < this.H; ++i) {
             j = this.c + this.b.nextInt(16) + 8;
             k = this.d + this.b.nextInt(16) + 8;
-            this.g.a(this.a, this.b, j, this.a.h(j, k), k);
+            this.g.a(this.a, this.b, j, this.a.i(j, k), k);
         }
 
         for (i = 0; i < this.I; ++i) {
             j = this.c + this.b.nextInt(16) + 8;
             k = this.d + this.b.nextInt(16) + 8;
-            this.f.a(this.a, this.b, j, this.a.h(j, k), k);
+            this.f.a(this.a, this.b, j, this.a.i(j, k), k);
         }
 
         for (i = 0; i < this.G; ++i) {
             j = this.c + this.b.nextInt(16) + 8;
             k = this.d + this.b.nextInt(16) + 8;
-            this.g.a(this.a, this.b, j, this.a.h(j, k), k);
+            this.g.a(this.a, this.b, j, this.a.i(j, k), k);
         }
 
         i = this.z;

@@ -34,13 +34,13 @@ public class SChunkGenerator extends ChunkGenerator {
 
             // Patch biomes so ores have thicker bands
             try {
-                setFinalStatic(BiomeBase.class.getField("EXTREME_HILLS"), new SBiomeBigHills(3));
-                setFinalStatic(BiomeBase.class.getField("JUNGLE"), new SBiomeJungle(21));
-                setFinalStatic(BiomeBase.class.getField("JUNGLE_HILLS"), new SBiomeJungle(22));
+                ReflectionUtil.setFinalStatic(BiomeBase.class.getField("EXTREME_HILLS"), new SBiomeBigHills(3));
+                ReflectionUtil.setFinalStatic(BiomeBase.class.getField("JUNGLE"), new SBiomeJungle(21));
+                ReflectionUtil.setFinalStatic(BiomeBase.class.getField("JUNGLE_HILLS"), new SBiomeJungle(22));
             }
             catch (Exception e) {}
             for(BiomeBase b : BiomeBase.biomes) {
-                if (b != null) {
+                if (b != null && b.I.getClass() == BiomeDecorator.class) {  // Don't update the End or the Nether
                     b.I = new SBiomeDecorator(b);
                 }
             }
@@ -78,16 +78,6 @@ public class SChunkGenerator extends ChunkGenerator {
         ArrayList<BlockPopulator> populators = new ArrayList<BlockPopulator>();
         populators.add(new SBlockPopulator());
         return populators;
-    }
-
-    private static void setFinalStatic(Field field, Object newValue) throws Exception {
-        field.setAccessible(true);
-
-        Field modifiersField = Field.class.getDeclaredField("modifiers");
-        modifiersField.setAccessible(true);
-        modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
-
-        field.set(null, newValue);
     }
 
     private class SBlockPopulator extends BlockPopulator{
