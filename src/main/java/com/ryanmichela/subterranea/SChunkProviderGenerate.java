@@ -4,6 +4,7 @@ package com.ryanmichela.subterranea;
  * Copyright 2013 Ryan Michela
  */
 import net.minecraft.server.v1_6_R2.*;
+import org.bukkit.craftbukkit.v1_6_R2.CraftWorld;
 
 import java.util.Arrays;
 import java.util.List;
@@ -375,14 +376,14 @@ public class SChunkProviderGenerate implements IChunkProvider {
 
         if (biomebase != BiomeBase.DESERT && biomebase != BiomeBase.DESERT_HILLS && !flag && this.random.nextInt(4) == 0) {
             k1 = k + this.random.nextInt(16) + 8;
-            l1 = this.random.nextInt(128);
+            l1 = this.random.nextInt(256); //128=>256
             i2 = l + this.random.nextInt(16) + 8;
             (new WorldGenLakes(Block.STATIONARY_WATER.id)).a(this.world, this.random, k1, l1, i2);
         }
 
         if (!flag && this.random.nextInt(8) == 0) {
             k1 = k + this.random.nextInt(16) + 8;
-            l1 = this.random.nextInt(this.random.nextInt(120) + 8);
+            l1 = this.random.nextInt(this.random.nextInt(148) + 8);  //120=>148
             i2 = l + this.random.nextInt(16) + 8;
             if (l1 < 63 || this.random.nextInt(10) == 0) {
                 (new WorldGenLakes(Block.STATIONARY_LAVA.id)).a(this.world, this.random, k1, l1, i2);
@@ -391,7 +392,7 @@ public class SChunkProviderGenerate implements IChunkProvider {
 
         for (k1 = 0; k1 < 8; ++k1) {
             l1 = k + this.random.nextInt(16) + 8;
-            i2 = this.random.nextInt(128);
+            i2 = this.random.nextInt(256); //128=>256
             int j2 = l + this.random.nextInt(16) + 8;
 
             (new WorldGenDungeons()).a(this.world, this.random, l1, i2, j2);
