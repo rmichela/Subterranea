@@ -213,15 +213,6 @@ public class SChunkProviderGenerate implements IChunkProvider {
         }
 
         return chunk256;
-//        Chunk chunk = new SChunk(this.world, chunk256, xx, zz);
-//        byte[] abyte1 = chunk.m();
-//
-//        for (int k = 0; k < abyte1.length; ++k) {
-//            abyte1[k] = (byte) this.biomeBases[k].id;
-//        }
-//
-//        chunk.initLighting();
-//        return chunk;
     }
 
     private double[] a(double[] adouble, int i, int j, int k, int l, int i1, int j1) {
