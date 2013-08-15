@@ -1,7 +1,0 @@
-name: Subterranea
-version: "1.6.2-R0.1 R1"
-author: Ryan Michela
-main: com.ryanmichela.subterranea.SPlugin
-prefix: "Subterranea"
-load: STARTUP
-loadbefore: [ Multiverse-Core, MyWorlds ]
