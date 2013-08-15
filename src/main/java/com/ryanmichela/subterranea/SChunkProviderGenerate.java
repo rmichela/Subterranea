@@ -181,13 +181,15 @@ public class SChunkProviderGenerate implements IChunkProvider {
     }
 
     public Chunk getChunkAt(int xx, int zz) { //i=xx, j=zz
-        return this.getOrCreateChunk(xx, zz);
+        throw new UnsupportedOperationException();
     }
 
     public Chunk getOrCreateChunk(int xx, int zz) { //i=xx, j=zz
+        throw new UnsupportedOperationException();
+    }
+    public byte[] getChunkSectionsAt(int xx, int zz) { //i=xx, j=zz
         this.random.setSeed((long) xx * 341873128712L + (long) zz * 132897987541L);
 
-        //CraftBukkit begin
         byte[] chunk128 = new byte[16*16*128]; //abyte=chunk128, byte['\u8000']=byte[16*16*128]
         this.makeWorldStoneAndWater(xx, zz, chunk128);
 
@@ -198,7 +200,6 @@ public class SChunkProviderGenerate implements IChunkProvider {
             System.arraycopy(stone128, 0, chunk256, 256*i, 128);
             System.arraycopy(chunk128, 128*i, chunk256, 256*i+128, 128);
         }
-        //CraftBukkit end
 
         this.biomeBases = this.world.getWorldChunkManager().getBiomeBlock(this.biomeBases, xx * 16, zz * 16, 16, 16);
         this.applyBiomeTopCoverAndBedrock(xx, zz, chunk256, this.biomeBases);
@@ -211,15 +212,16 @@ public class SChunkProviderGenerate implements IChunkProvider {
             this.largeFeatureGen.a(this, this.world, xx, zz, chunk256);
         }
 
-        Chunk chunk = new SChunk(this.world, chunk256, xx, zz);
-        byte[] abyte1 = chunk.m();
-
-        for (int k = 0; k < abyte1.length; ++k) {
-            abyte1[k] = (byte) this.biomeBases[k].id;
-        }
-
-        chunk.initLighting();
-        return chunk;
+        return chunk256;
+//        Chunk chunk = new SChunk(this.world, chunk256, xx, zz);
+//        byte[] abyte1 = chunk.m();
+//
+//        for (int k = 0; k < abyte1.length; ++k) {
+//            abyte1[k] = (byte) this.biomeBases[k].id;
+//        }
+//
+//        chunk.initLighting();
+//        return chunk;
     }
 
     private double[] a(double[] adouble, int i, int j, int k, int l, int i1, int j1) {

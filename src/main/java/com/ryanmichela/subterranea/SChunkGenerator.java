@@ -18,12 +18,12 @@ import java.util.Random;
  * Copyright 2013 Ryan Michela
  */
 public class SChunkGenerator extends ChunkGenerator {
-    private static IChunkProvider provider = null;
+    private static SChunkProviderGenerate provider = null;
 
     public SChunkGenerator() {
     }
 
-    public static IChunkProvider lazyGetProvider(org.bukkit.World bukkitWorld)
+    public static SChunkProviderGenerate lazyGetProvider(org.bukkit.World bukkitWorld)
     {
         if (provider == null) {
             World world = ((CraftWorld)bukkitWorld).getHandle();
@@ -51,23 +51,9 @@ public class SChunkGenerator extends ChunkGenerator {
     }
 
     @Override
-    public byte[][] generateBlockSections(org.bukkit.World world, Random random, int x, int z, BiomeGrid biomes) {
-
-        IChunkProvider chunkProvider = lazyGetProvider(world);
-        Chunk chunk = chunkProvider.getChunkAt(x, z);
-
-
-
-        ChunkSection[] chunkSections = chunk.i();
-        byte[][] sectionBytes = new byte[16][];
-
-        for(int i = 0; i < 16; i++) {
-            if (chunkSections[i] != null) {
-                sectionBytes[i] = chunkSections[i].getIdArray();
-            }
-        }
-
-        return sectionBytes;
+    public byte[] generate(org.bukkit.World world, Random random, int x, int z) {
+        SChunkProviderGenerate chunkProvider = lazyGetProvider(world);
+        return chunkProvider.getChunkSectionsAt(x, z);
     }
 
     public boolean canSpawn(org.bukkit.World world, int x, int z) {
