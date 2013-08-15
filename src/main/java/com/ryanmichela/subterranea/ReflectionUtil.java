@@ -7,14 +7,31 @@ import java.lang.reflect.Modifier;
  * Copyright 2013 Ryan Michela
  */
 public class ReflectionUtil {
-    public static void setFinalStatic(Field field, Object newValue) throws Exception {
-        field.setAccessible(true);
+    public static void setProtectedValue(Object o, String field, Object newValue) {
+        setProtectedValue(o.getClass(), o, field, newValue);
+    }
 
-        Field modifiersField = Field.class.getDeclaredField("modifiers");
-        modifiersField.setAccessible(true);
-        modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+    public static void setProtectedValue(Class c, String field, Object newValue) {
+             setProtectedValue(c, null, field, newValue);
+    }
 
-        field.set(null, newValue);
+    public static void setProtectedValue(Class c, Object o, String field, Object newValue) {
+        try {
+
+            Field f = c.getDeclaredField(field);
+
+            f.setAccessible(true);
+
+            Field modifiersField = Field.class.getDeclaredField("modifiers");
+            modifiersField.setAccessible(true);
+            modifiersField.setInt(f, f.getModifiers() & ~Modifier.FINAL);
+
+            f.set(o, newValue);
+        } catch (NoSuchFieldException ex) {
+            System.out.println("*** " + c.getName() + ":" + ex);
+        } catch (IllegalAccessException ex) {
+            System.out.println("*** " + c.getName() + ":" + ex);
+        }
     }
 
     public static <T> T getProtectedValue(Object obj, String field) {
@@ -24,7 +41,7 @@ public class ReflectionUtil {
             f.setAccessible(true);
             return (T) f.get(obj);
         } catch (Exception ex) {
-            System.out.println("*** " + ex);
+            System.out.println("*** " + obj.getClass().getName() + ":" + ex);
             return null;
         }
     }

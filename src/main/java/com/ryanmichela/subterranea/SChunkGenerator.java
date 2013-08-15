@@ -1,15 +1,11 @@
 package com.ryanmichela.subterranea;
 
 import net.minecraft.server.v1_6_R2.*;
-import net.minecraft.server.v1_6_R2.Chunk;
 import net.minecraft.server.v1_6_R2.World;
-import org.bukkit.*;
 import org.bukkit.craftbukkit.v1_6_R2.CraftWorld;
 import org.bukkit.generator.BlockPopulator;
 import org.bukkit.generator.ChunkGenerator;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -33,12 +29,12 @@ public class SChunkGenerator extends ChunkGenerator {
             world.worldProvider.a(world);
 
             // Patch biomes so ores have thicker bands
-            try {
-                ReflectionUtil.setFinalStatic(BiomeBase.class.getField("EXTREME_HILLS"), new SBiomeBigHills(3));
-                ReflectionUtil.setFinalStatic(BiomeBase.class.getField("JUNGLE"), new SBiomeJungle(21));
-                ReflectionUtil.setFinalStatic(BiomeBase.class.getField("JUNGLE_HILLS"), new SBiomeJungle(22));
-            }
-            catch (Exception e) {}
+            ReflectionUtil.setProtectedValue(BiomeBase.class, "EXTREME_HILLS", new SBiomeBigHills(3));
+            ReflectionUtil.setProtectedValue(BiomeBase.class, "JUNGLE", new SBiomeJungle(21));
+            ReflectionUtil.setProtectedValue(BiomeBase.class, "JUNGLE_HILLS", new SBiomeJungle(22));
+
+            ReflectionUtil.setProtectedValue(BiomeBase.class, BiomeBase.SWAMPLAND, "R", new SWorldGenSwampTree());
+
             for(BiomeBase b : BiomeBase.biomes) {
                 if (b != null && b.I.getClass() == BiomeDecorator.class) {  // Don't update the End or the Nether
                     b.I = new SBiomeDecorator(b);
