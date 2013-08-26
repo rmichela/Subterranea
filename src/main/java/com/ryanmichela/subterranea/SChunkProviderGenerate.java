@@ -28,7 +28,7 @@ public class SChunkProviderGenerate implements IChunkProvider {
     private WorldGenStronghold strongholdGen = new WorldGenStronghold(); //u=strongholdGen
     private WorldGenVillage villageGen = new WorldGenVillage(); //v=villageGen
     private WorldGenMineshaft mineshaftGen = new WorldGenMineshaft(); //w=mineshaftGen
-    private WorldGenLargeFeature largeFeatureGen = new WorldGenLargeFeature(); //x=largeFeatureGen
+    private WorldGenLargeFeature largeFeatureGen = new SWorldGenLargeFeature(); //x=largeFeatureGen
     private WorldGenBase canyonGen = new SWorldGenCanyon(); //y=canyonGen
     private BiomeBase[] biomeBases; //z=biomeBases
     double[] d;
