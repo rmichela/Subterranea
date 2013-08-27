@@ -1,5 +1,7 @@
 package com.ryanmichela.subterranea;
 
+import com.ryanmichela.moresilverfish.SilverfishPopulator;
+import com.ryanmichela.undergroundbiomes.UndergroundBiomePopulator;
 import net.minecraft.server.v1_6_R2.*;
 import net.minecraft.server.v1_6_R2.World;
 import org.bukkit.craftbukkit.v1_6_R2.CraftWorld;
@@ -59,6 +61,8 @@ public class SChunkGenerator extends ChunkGenerator {
     public List<BlockPopulator> getDefaultPopulators(org.bukkit.World world) {
         ArrayList<BlockPopulator> populators = new ArrayList<BlockPopulator>();
         populators.add(new SBlockPopulator());
+        populators.add(new UndergroundBiomePopulator());
+        populators.add(new SilverfishPopulator());
         return populators;
     }
 
