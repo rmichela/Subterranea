@@ -32,7 +32,7 @@ public class SWorldGenCanyon extends WorldGenCanyon {
 
         float f5 = 1.0F;
 
-        for (int k1 = 0; k1 < 128; ++k1) {
+        for (int k1 = 0; k1 < 256; ++k1) { // 256 = 128
             if (k1 == 0 || random.nextInt(3) == 0) {
                 f5 = 1.0F + random.nextFloat() * random.nextFloat() * 1.0F;
             }
