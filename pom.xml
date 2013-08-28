@@ -54,6 +54,13 @@
             <scope>provided</scope>
             <type>jar</type>
         </dependency>
+        <dependency>
+            <groupId>com.ryanmichela</groupId>
+            <artifactId>GiantCaves</artifactId>
+            <version>1.6.2-R0.1</version>
+            <scope>provided</scope>
+            <type>jar</type>
+        </dependency>
     </dependencies>
 
     <!-- Build -->

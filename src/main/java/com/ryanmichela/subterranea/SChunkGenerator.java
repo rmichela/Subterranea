@@ -1,24 +1,30 @@
 package com.ryanmichela.subterranea;
 
+import com.ryanmichela.giantcaves.Config;
+import com.ryanmichela.giantcaves.GiantCavePopulator;
 import com.ryanmichela.moresilverfish.SilverfishPopulator;
 import com.ryanmichela.undergroundbiomes.UndergroundBiomePopulator;
 import net.minecraft.server.v1_6_R2.*;
 import net.minecraft.server.v1_6_R2.World;
+import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.v1_6_R2.CraftWorld;
 import org.bukkit.generator.BlockPopulator;
 import org.bukkit.generator.ChunkGenerator;
+import org.bukkit.plugin.Plugin;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Copyright 2013 Ryan Michela
  */
 public class SChunkGenerator extends ChunkGenerator {
     private static SChunkProviderGenerate provider = null;
+    private final Plugin plugin;
+    private final GeneratorOptions options;
 
-    public SChunkGenerator() {
+    public SChunkGenerator(Plugin plugin, GeneratorOptions options) {
+        this.plugin = plugin;
+        this.options = options;
     }
 
     public static SChunkProviderGenerate lazyGetProvider(org.bukkit.World bukkitWorld)
@@ -61,13 +67,46 @@ public class SChunkGenerator extends ChunkGenerator {
     public List<BlockPopulator> getDefaultPopulators(org.bukkit.World world) {
         ArrayList<BlockPopulator> populators = new ArrayList<BlockPopulator>();
         populators.add(new SBlockPopulator());
-        populators.add(new UndergroundBiomePopulator());
-        populators.add(new SilverfishPopulator());
+
+        try {
+            if (options.giantCaves) {
+                plugin.getLogger().info("Adding Giant Caves to world '" + world.getName() + "' with settings " + options.caveSettings);
+                Config caveConfig = parseCaveConfig(options.caveSettings);
+                populators.add(new GiantCavePopulator(plugin, caveConfig));
+            }
+        } catch (NoClassDefFoundError ex) {
+            plugin.getLogger().severe("Failed to locate Giant Caves plugin.");
+            plugin.getLogger().severe("Download from http://dev.bukkit.org/bukkit-plugins/giant-caves/");
+        }
+
+        if (options.undergroundBiomes) {
+            plugin.getLogger().info("Adding underground biomes to world '" + world.getName() + "'");
+            populators.add(new UndergroundBiomePopulator());
+        } else {
+            plugin.getLogger().info("Disabling underground biomes in world '" + world.getName() + "'");
+        }
+
+        if (options.silverfish) {
+            plugin.getLogger().info("Adding silverfish colonies to world '" + world.getName() + "'");
+            populators.add(new SilverfishPopulator());
+        } else {
+            plugin.getLogger().info("Disabling silverfish colonies in world '" + world.getName() + "'");
+        }
+
+
         return populators;
     }
 
-    private class SBlockPopulator extends BlockPopulator{
+    private Config parseCaveConfig(String caveSettings) {
+        Map<String, Object> kv = new HashMap<String, Object>();
+        for(String setting : caveSettings.split(",")) {
+            String[] splits = setting.split("=");
+            kv.put(splits[0], splits[1]);
+        }
+        return new Config(kv);
+    }
 
+    private class SBlockPopulator extends BlockPopulator{
         @Override
         public void populate(org.bukkit.World world, Random random, org.bukkit.Chunk chunk) {
             IChunkProvider chunkProvider = lazyGetProvider(world);
