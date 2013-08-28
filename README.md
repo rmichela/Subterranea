@@ -1,6 +1,7 @@
 Overview
 ========
-Subterranea is a modification of the Vanilla terrain generator that switches the above and below ground spaces so your world has 192 layers below sea level and 64 layers above. Great for Mole Man worlds.
+Subterranea is a modification of the Vanilla terrain generator that switches the above and below ground 
+spaces so your world has 192 layers below sea level and 64 layers above. Great for Mole Man worlds.
 
 ![Example world](http://dev.bukkit.org/media/images/61/708/Subterranea.png)
 
@@ -24,7 +25,40 @@ Installation
 ```
 worlds:
   [worldname]:
-    generator: Subterranea
+    generator: Subterranea[:options]
 ```
 
-_Note:_ If you use "world" for [worldname] in your bukkit.yml, Subterranea will run in your default world.
+__Notes:__ 
+* If you use "world" for [worldname] in your bukkit.yml, Subterranea will run in your default world.
+* [:options] can be omitted to use the default settings. See below for details.
+
+Using Subterranea with Multiverse
+=================================
+To use Subterranea with Multiverse, use the following sequence of commands
+1. `mv create world_name NORMAL -g "Subterranea[:options]"`
+2. `mv tp world_name`
+ 
+__Notes:__ 
+* [:options] can be omitted to use the default settings. See below for details.
+ 
+Subterranea Options
+===================
+The Subterranea world generator supports a number of options. Options are passed into the generator using the 
+[:options] string in the above examples. Always put a colon between the word Subterranea and the options string.
+
+_-underground-biomes:_ (true or false, default true) Enables or disables underground bionme creation
+
+_-silverfish:_ (true or false, default true) Enables or disables silverfish colony creation hidden in the stone.
+
+_-giant-caves:_ (default sxz=500,sy=175,cutoff=65,miny=40,maxy=160) Enables or disables the Giant Caves plugin.
+An optional configuration string can be passed into this option to configure the Giant Caves generator. See the
+Giant Caves documentation for a description of each setting and how it affects cave creation.
+
+__Multiverse Example:__
+
+```
+mv create DeepWorld NORMAL -g "Subterranea:-underground-biomes true -silverfish true 
+         -giant-caves sxz=500,sy=175,cutoff=65,miny=10,maxy=180"
+```
+
+_Create a new Subterranea world called DeepWorld with underground biomes, silverfish, and gaint caves from layer 10 to layer 180_
