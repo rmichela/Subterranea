@@ -1,6 +1,6 @@
 package com.ryanmichela.subterranea;
 
-import net.minecraft.server.v1_6_R2.*;
+import net.minecraft.server.v1_6_R3.*;
 
 /**
  * Copyright 2013 Ryan Michela
@@ -173,18 +173,22 @@ public class SBiomeDecorator extends BiomeDecorator {
         }
 
         if (this.K) {
-            for (j = 0; j < 50; ++j) {
-                k = this.c + this.b.nextInt(16) + 8;
-                l = this.b.nextInt(this.b.nextInt(240) + 8); //120=240
-                i1 = this.d + this.b.nextInt(16) + 8;
-                (new WorldGenLiquids(Block.WATER.id)).a(this.a, this.b, k, l, i1);
-            }
+            try {
+                for (j = 0; j < 50; ++j) {
+                    k = this.c + this.b.nextInt(16) + 8;
+                    l = this.b.nextInt(this.b.nextInt(240) + 8); //120=240
+                    i1 = this.d + this.b.nextInt(16) + 8;
+                    (new WorldGenLiquids(Block.WATER.id)).a(this.a, this.b, k, l, i1);
+                }
 
-            for (j = 0; j < 20; ++j) {
-                k = this.c + this.b.nextInt(16) + 8;
-                l = this.b.nextInt(this.b.nextInt(this.b.nextInt(224) + 8) + 8); //112=224
-                i1 = this.d + this.b.nextInt(16) + 8;
-                (new WorldGenLiquids(Block.LAVA.id)).a(this.a, this.b, k, l, i1);
+                for (j = 0; j < 20; ++j) {
+                    k = this.c + this.b.nextInt(16) + 8;
+                    l = this.b.nextInt(this.b.nextInt(this.b.nextInt(224) + 8) + 8); //112=224
+                    i1 = this.d + this.b.nextInt(16) + 8;
+                    (new WorldGenLiquids(Block.LAVA.id)).a(this.a, this.b, k, l, i1);
+                }
+            } catch (Exception e) {
+                System.out.println("Exception in liquid population. Most likely an underground stream got too long. - " + e.getMessage());
             }
         }
     }

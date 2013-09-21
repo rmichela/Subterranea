@@ -3,8 +3,8 @@ package com.ryanmichela.subterranea;
 /**
  * Copyright 2013 Ryan Michela
  */
-import net.minecraft.server.v1_6_R2.*;
-import org.bukkit.craftbukkit.v1_6_R2.CraftWorld;
+import net.minecraft.server.v1_6_R3.*;
+import org.bukkit.craftbukkit.v1_6_R3.CraftWorld;
 
 import java.util.Arrays;
 import java.util.List;

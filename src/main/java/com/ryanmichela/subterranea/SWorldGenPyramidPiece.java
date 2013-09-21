@@ -1,8 +1,8 @@
 package com.ryanmichela.subterranea;
 
-import net.minecraft.server.v1_6_R2.StructureBoundingBox;
-import net.minecraft.server.v1_6_R2.World;
-import net.minecraft.server.v1_6_R2.WorldGenPyramidPiece;
+import net.minecraft.server.v1_6_R3.StructureBoundingBox;
+import net.minecraft.server.v1_6_R3.World;
+import net.minecraft.server.v1_6_R3.WorldGenPyramidPiece;
 
 import java.util.Random;
 
