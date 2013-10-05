@@ -12,7 +12,7 @@ public class ReflectionUtil {
     }
 
     public static void setProtectedValue(Class c, String field, Object newValue) {
-             setProtectedValue(c, null, field, newValue);
+        setProtectedValue(c, null, field, newValue);
     }
 
     public static void setProtectedValue(Class c, Object o, String field, Object newValue) {
@@ -34,12 +34,21 @@ public class ReflectionUtil {
         }
     }
 
-    public static <T> T getProtectedValue(Object obj, String field) {
+    public static <T> T getProtectedValue(Object obj, String fieldName) {
         try {
             Class c = obj.getClass();
-            Field f = c.getDeclaredField(field);
-            f.setAccessible(true);
-            return (T) f.get(obj);
+            while(c != Object.class) {
+                Field[] fields = c.getDeclaredFields();
+                for(Field f : fields) {
+                    if (f.getName() == fieldName) {
+                        f.setAccessible(true);
+                        return (T) f.get(obj);
+                    }
+                }
+                c = c.getSuperclass();
+            }
+            System.out.println("*** " + obj.getClass().getName() + ":No such field");
+            return null;
         } catch (Exception ex) {
             System.out.println("*** " + obj.getClass().getName() + ":" + ex);
             return null;

@@ -5,8 +5,6 @@ import com.ryanmichela.giantcaves.GiantCavePopulator;
 import com.ryanmichela.moresilverfish.SilverfishPopulator;
 import com.ryanmichela.undergroundbiomes.UndergroundBiomePopulator;
 import net.minecraft.server.v1_6_R3.*;
-import net.minecraft.server.v1_6_R3.World;
-import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.v1_6_R3.CraftWorld;
 import org.bukkit.generator.BlockPopulator;
 import org.bukkit.generator.ChunkGenerator;
@@ -43,9 +41,24 @@ public class SChunkGenerator extends ChunkGenerator {
 
             ReflectionUtil.setProtectedValue(BiomeBase.class, BiomeBase.SWAMPLAND, "R", new SWorldGenSwampTree());
 
+            // Patch common aspects of all biomes
             for(BiomeBase b : BiomeBase.biomes) {
                 if (b != null && b.I.getClass() == BiomeDecorator.class) {  // Don't update the End or the Nether
+                    // Patch the biome decorator
                     b.I = new SBiomeDecorator(b);
+                    // Patch biome entity lists
+                    ArrayList<BiomeMeta> aquatics = ReflectionUtil.getProtectedValue(b, "L");
+                    for(BiomeMeta meta : aquatics) {
+                        if (meta.b == EntitySquid.class) {
+                            meta.b = SEntitySquid.class;
+                        }
+                    }
+                    ArrayList<BiomeMeta> hostiles = ReflectionUtil.getProtectedValue(b, "J");
+                    for(BiomeMeta meta : hostiles) {
+                        if (meta.b == EntitySlime.class) {
+                            meta.b = SEntitySlime.class;
+                        }
+                    }
                 }
             }
 
