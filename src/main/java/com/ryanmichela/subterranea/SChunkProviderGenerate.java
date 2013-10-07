@@ -4,7 +4,6 @@ package com.ryanmichela.subterranea;
  * Copyright 2013 Ryan Michela
  */
 import net.minecraft.server.v1_6_R3.*;
-import org.bukkit.craftbukkit.v1_6_R3.CraftWorld;
 
 import java.util.Arrays;
 import java.util.List;
@@ -28,7 +27,7 @@ public class SChunkProviderGenerate implements IChunkProvider {
     private WorldGenStronghold strongholdGen = new WorldGenStronghold(); //u=strongholdGen
     private WorldGenVillage villageGen = new WorldGenVillage(); //v=villageGen
     private WorldGenMineshaft mineshaftGen = new WorldGenMineshaft(); //w=mineshaftGen
-    private WorldGenLargeFeature largeFeatureGen = new SWorldGenLargeFeature(); //x=largeFeatureGen
+    private SWorldGenLargeFeature largeFeatureGen = new SWorldGenLargeFeature(); //x=largeFeatureGen
     private WorldGenBase canyonGen = new SWorldGenCanyon(); //y=canyonGen
     private BiomeBase[] biomeBases; //z=biomeBases
     double[] d;

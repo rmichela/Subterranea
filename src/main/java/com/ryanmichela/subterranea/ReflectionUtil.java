@@ -12,7 +12,7 @@ public class ReflectionUtil {
     }
 
     public static void setProtectedValue(Class c, String field, Object newValue) {
-             setProtectedValue(c, null, field, newValue);
+        setProtectedValue(c, null, field, newValue);
     }
 
     public static void setProtectedValue(Class c, Object o, String field, Object newValue) {
@@ -42,6 +42,17 @@ public class ReflectionUtil {
             return (T) f.get(obj);
         } catch (Exception ex) {
             System.out.println("*** " + obj.getClass().getName() + ":" + ex);
+            return null;
+        }
+    }
+
+    public static <T> T getProtectedValue(Class c, String field) {
+        try {
+            Field f = c.getDeclaredField(field);
+            f.setAccessible(true);
+            return (T) f.get(c);
+        } catch (Exception ex) {
+            System.out.println("*** " + c.getName() + ":" + ex);
             return null;
         }
     }

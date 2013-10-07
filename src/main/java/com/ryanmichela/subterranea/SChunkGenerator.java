@@ -5,8 +5,6 @@ import com.ryanmichela.giantcaves.GiantCavePopulator;
 import com.ryanmichela.moresilverfish.SilverfishPopulator;
 import com.ryanmichela.undergroundbiomes.UndergroundBiomePopulator;
 import net.minecraft.server.v1_6_R3.*;
-import net.minecraft.server.v1_6_R3.World;
-import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.v1_6_R3.CraftWorld;
 import org.bukkit.generator.BlockPopulator;
 import org.bukkit.generator.ChunkGenerator;
@@ -35,6 +33,16 @@ public class SChunkGenerator extends ChunkGenerator {
             // Patch WorldProvider so structures generate at correct sea level
             world.worldProvider = new SWorldProvider();
             world.worldProvider.a(world);
+
+            // Patch WorldGenFactory so it knows about SWorldGenLargeFeature
+            // May have to update SWorldGenPyramidPiece to be world-type sensitive
+            // Patch the factory lists so that 'Temple' resolves to SWorldGenFeatureStart
+            // Patch the factory so that SWorldGenFeatureStart and WorldGenFeatureStart
+            //   resolve to 'Temple'
+//            HashMap factoryA = ReflectionUtil.getProtectedStaticValue(WorldGenFactory.class, "a");
+//            HashMap factoryB = ReflectionUtil.getProtectedStaticValue(WorldGenFactory.class, "b");
+//            factoryA.put("Temple", SWorldGenLargeFeature.class);
+//            factoryB.put(SWorldGenLargeFeature.class, "Temple");
 
             // Patch biomes so ores have thicker bands
             ReflectionUtil.setProtectedValue(BiomeBase.class, "EXTREME_HILLS", new SBiomeBigHills(3));
