@@ -9,6 +9,10 @@ import java.util.Random;
  */
 public class SWorldGenLargeFeatureStart extends StructureStart {
 
+    public SWorldGenLargeFeatureStart() {
+        super();
+    }
+
     public SWorldGenLargeFeatureStart(World world, Random random, int i, int j) {
         BiomeBase biomebase = world.getBiome(i * 16 + 8, j * 16 + 8);
 

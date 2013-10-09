@@ -54,4 +54,15 @@ public class ReflectionUtil {
             return null;
         }
     }
+
+    public static <T> T getProtectedValue(Class c, String field) {
+        try {
+            Field f = c.getDeclaredField(field);
+            f.setAccessible(true);
+            return (T) f.get(c);
+        } catch (Exception ex) {
+            System.out.println("*** " + c.getName() + ":" + ex);
+            return null;
+        }
+    }
 }
