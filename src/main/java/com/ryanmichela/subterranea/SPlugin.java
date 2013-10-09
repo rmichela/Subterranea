@@ -1,6 +1,6 @@
 package com.ryanmichela.subterranea;
 
-import com.ryanmichela.giantcaves.GCPlugin;
+import net.minecraft.server.v1_6_R3.WorldGenFactory;
 import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.libs.joptsimple.OptionException;
 import org.bukkit.craftbukkit.libs.joptsimple.OptionParser;
@@ -8,12 +8,25 @@ import org.bukkit.craftbukkit.libs.joptsimple.OptionSet;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import javax.swing.text.html.Option;
+import java.util.HashMap;
 
 /**
  * Copyright 2013 Ryan Michela
  */
 public class SPlugin extends JavaPlugin {
+    @Override
+    public void onLoad() {
+        // Patch WorldGenFactory once, the first time the plugin loads
+        HashMap factoryA = ReflectionUtil.getProtectedValue(WorldGenFactory.class, "a");
+        HashMap factoryB = ReflectionUtil.getProtectedValue(WorldGenFactory.class, "b");
+        HashMap factoryC = ReflectionUtil.getProtectedValue(WorldGenFactory.class, "c");
+        HashMap factoryD = ReflectionUtil.getProtectedValue(WorldGenFactory.class, "d");
+        factoryA.put("Temple", SWorldGenLargeFeatureStart.class);
+        factoryB.put(SWorldGenLargeFeatureStart.class, "Temple");
+        factoryC.put("TeDP", SWorldGenPyramidPiece.class);
+        factoryD.put(SWorldGenPyramidPiece.class, "TeDP");
+    }
+
     @Override
     public ChunkGenerator getDefaultWorldGenerator(String worldName, String id) {
         getLogger().info("Subterranea loaded for world " + worldName);
