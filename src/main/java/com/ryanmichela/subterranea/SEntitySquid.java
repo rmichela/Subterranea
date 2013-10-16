@@ -13,7 +13,6 @@ public class SEntitySquid extends EntitySquid {
 
     @Override
     public boolean canSpawn() {
-        System.out.println("Squid");
         return this.locY > 45.0D && this.locY < 191.0D && superCanSpawn();  //63 => 191
     }
 

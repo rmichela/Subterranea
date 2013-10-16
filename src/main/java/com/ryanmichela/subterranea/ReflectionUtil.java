@@ -1,6 +1,7 @@
 package com.ryanmichela.subterranea;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
 /**
@@ -62,6 +63,35 @@ public class ReflectionUtil {
             return (T) f.get(c);
         } catch (Exception ex) {
             System.out.println("*** " + c.getName() + ":" + ex);
+            return null;
+        }
+    }
+
+    public static Object invokeProtectedMethod(Class c, String method, Object... args) {
+        return invokeProtectedMethod(c, null, method, args);
+    }
+
+    public static Object invokeProtectedMethod(Object o, String method, Object... args) {
+        return invokeProtectedMethod(o.getClass(), o, method, args);
+    }
+
+    public static Object invokeProtectedMethod(Class c, Object o, String method, Object... args) {
+        try {
+            Class[] pTypes = new Class[args.length];
+            for(int i = 0; i < args.length; i++) {
+                if (args[i] instanceof Integer) {
+                    pTypes[i] = int.class;
+                } else {
+                    pTypes[i] = args[i].getClass();
+                }
+            }
+
+            Method m = c.getDeclaredMethod(method, pTypes);
+            m.setAccessible(true);
+            return m.invoke(o, args);
+        }
+        catch (Exception ex) {
+            System.out.println("*** " + c.getName() + "." + method + "(): " + ex);
             return null;
         }
     }

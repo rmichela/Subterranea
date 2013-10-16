@@ -1,5 +1,6 @@
 package com.ryanmichela.subterranea;
 
+import net.minecraft.server.v1_6_R3.EntityTypes;
 import net.minecraft.server.v1_6_R3.WorldGenFactory;
 import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.libs.joptsimple.OptionException;
@@ -25,6 +26,10 @@ public class SPlugin extends JavaPlugin {
         factoryB.put(SWorldGenLargeFeatureStart.class, "Temple");
         factoryC.put("TeDP", SWorldGenPyramidPiece.class);
         factoryD.put(SWorldGenPyramidPiece.class, "TeDP");
+
+        // Patch EntityTypes once, the first time the plugin loads
+        ReflectionUtil.invokeProtectedMethod(EntityTypes.class, "a", SEntitySlime.class, "Slime", 55, 5349438, 8306542);
+        ReflectionUtil.invokeProtectedMethod(EntityTypes.class, "a", SEntitySquid.class, "Squid", 94, 2243405, 7375001);
     }
 
     @Override
