@@ -8,4 +8,5 @@ public class GeneratorOptions {
     public boolean silverfish;
     public boolean giantCaves;
     public String caveSettings;
+    public int oreMultiplier;
 }

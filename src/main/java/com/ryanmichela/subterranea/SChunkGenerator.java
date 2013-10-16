@@ -25,7 +25,7 @@ public class SChunkGenerator extends ChunkGenerator {
         this.options = options;
     }
 
-    public static SChunkProviderGenerate lazyGetProvider(org.bukkit.World bukkitWorld)
+    public SChunkProviderGenerate lazyGetProvider(org.bukkit.World bukkitWorld)
     {
         if (provider == null) {
             World world = ((CraftWorld)bukkitWorld).getHandle();
@@ -45,7 +45,7 @@ public class SChunkGenerator extends ChunkGenerator {
             for(BiomeBase b : BiomeBase.biomes) {
                 if (b != null && b.I.getClass() == BiomeDecorator.class) {  // Don't update the End or the Nether
                     // Patch the biome decorator
-                    b.I = new SBiomeDecorator(b);
+                    b.I = new SBiomeDecorator(b, options);
                     // Patch biome entity lists
                     ArrayList<BiomeMeta> aquatics = ReflectionUtil.getProtectedValue(b, "L");
                     for(BiomeMeta meta : aquatics) {

@@ -55,6 +55,11 @@ public class SPlugin extends JavaPlugin {
                         .withOptionalArg()
                         .ofType(String.class)
                         .defaultsTo("sxz=500,sy=175,cutoff=65,miny=40,maxy=160");
+
+                accepts("ore-multiplier")
+                        .withRequiredArg()
+                        .ofType(Integer.class)
+                        .defaultsTo(3);
             }
         };
 
@@ -66,6 +71,7 @@ public class SPlugin extends JavaPlugin {
             options.silverfish = (Boolean)optionSet.valueOf("silverfish");
             options.giantCaves = optionSet.has("giant-caves");
             options.caveSettings = (String)optionSet.valueOf("giant-caves");
+            options.oreMultiplier = (Integer)optionSet.valueOf("ore-multiplier");
 
             return new SChunkGenerator(this, options);
         } catch (OptionException ex) {
