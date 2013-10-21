@@ -7,8 +7,13 @@ import java.util.Random;
 /**
  * Copyright 2013 Ryan Michela
  */
-public class SWorldGenCaves extends WorldGenCaves {
-    @Override
+public class SWorldGenCaves extends WorldGenBase {
+    public SWorldGenCaves() {}
+
+    protected void a(long i, int j, int k, byte[] abyte, double d0, double d1, double d2) {
+        this.a(i, j, k, abyte, d0, d1, d2, 1.0F + this.b.nextFloat() * 6.0F, 0.0F, 0.0F, -1, -1, 0.5D);
+    }
+
     protected void a(long i, int j, int k, byte[] abyte, double d0, double d1, double d2, float f, float f1, float f2, int l, int i1, double d3) {
         double d4 = (double) (j * 16 + 8);
         double d5 = (double) (k * 16 + 8);
@@ -165,6 +170,42 @@ public class SWorldGenCaves extends WorldGenCaves {
                         }
                     }
                 }
+            }
+        }
+    }
+
+    // Main cave entry point
+    @Override
+    protected void a(World world, int i, int j, int xx, int zz, byte[] chunk256) {
+        int i1 = this.b.nextInt(this.b.nextInt(this.b.nextInt(40) + 1) + 1);
+
+        if (this.b.nextInt(15) != 0) {
+            i1 = 0;
+        }
+
+        for (int j1 = 0; j1 < i1; ++j1) {
+            double d0 = (double) (i * 16 + this.b.nextInt(16));
+            double d1 = (double) this.b.nextInt(this.b.nextInt(248) + 8); //120 => 248
+            double d2 = (double) (j * 16 + this.b.nextInt(16));
+            int k1 = 1;
+
+            if (this.b.nextInt(4) == 0) {
+                // Make caves?
+                this.a(this.b.nextLong(), xx, zz, chunk256, d0, d1, d2);
+                k1 += this.b.nextInt(4);
+            }
+
+            for (int l1 = 0; l1 < k1; ++l1) {
+                float f = this.b.nextFloat() * 3.1415927F * 2.0F;
+                float f1 = (this.b.nextFloat() - 0.5F) * 2.0F / 8.0F;
+                float f2 = this.b.nextFloat() * 2.0F + this.b.nextFloat();
+
+                if (this.b.nextInt(10) == 0) {
+                    f2 *= this.b.nextFloat() * this.b.nextFloat() * 3.0F + 1.0F;
+                }
+
+                // Make caves?
+                this.a(this.b.nextLong(), xx, zz, chunk256, d0, d1, d2, f2, f, f1, 0, 0, 1.0D);
             }
         }
     }
