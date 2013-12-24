@@ -1,6 +1,6 @@
 package com.ryanmichela.subterranea;
 
-import net.minecraft.server.v1_6_R3.*;
+import net.minecraft.server.v1_7_R1.*;
 
 /**
  * Copyright 2013 Ryan Michela

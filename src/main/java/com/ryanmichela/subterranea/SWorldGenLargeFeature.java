@@ -1,7 +1,7 @@
 package com.ryanmichela.subterranea;
 
-import net.minecraft.server.v1_6_R3.StructureStart;
-import net.minecraft.server.v1_6_R3.WorldGenLargeFeature;
+import net.minecraft.server.v1_7_R1.StructureStart;
+import net.minecraft.server.v1_7_R1.WorldGenLargeFeature;
 
 /**
  * Copyright 2013 Ryan Michela

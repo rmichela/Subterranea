@@ -1,7 +1,7 @@
 package com.ryanmichela.subterranea;
 
-import net.minecraft.server.v1_6_R3.EntitySquid;
-import net.minecraft.server.v1_6_R3.World;
+import net.minecraft.server.v1_7_R1.EntitySquid;
+import net.minecraft.server.v1_7_R1.World;
 
 /**
  * Copyright 2013 Ryan Michela
