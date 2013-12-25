@@ -29,7 +29,7 @@ public class SChunkProviderGenerate implements IChunkProvider {
     private WorldGenVillage villageGen = new WorldGenVillage(); //v=villageGen
     private WorldGenMineshaft mineshaftGen = new WorldGenMineshaft(); //w=mineshaftGen
     private WorldGenLargeFeature largeFeatureGen = new SWorldGenLargeFeature(); //x=largeFeatureGen
-    private WorldGenBase canyonGen = new SWorldGenCanyon(); //y=canyonGen
+    private WorldGenBase canyonGen = new WorldGenCanyon(); //y=canyonGen
     private BiomeBase[] biomeBases; //z=biomeBases
     double[] d;
     double[] e;

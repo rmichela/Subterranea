@@ -8,20 +8,26 @@ import java.util.Random;
  * Copyright 2013 Ryan Michela
  */
 public class SBiomeJungle extends BiomeJungle {
-    public SBiomeJungle(int i) {
-        super(i);
-        this.b(5470985);
-        this.a("Jungle");
-        this.a(5470985);
-        this.temperature = 1.2F;
-        this.humidity = 0.9F;
-        this.D = 0.2F;
-        this.E = 0.4F;
+    // Manually initialize the biome because we can't use the fluent api called by BiomeBase
+    public SBiomeJungle(int i, boolean b, int i2, String name, int i3, float f1, float f2) {
+        super(i, b);
+        this.b(i2);
+        this.a(name);
+        this.a(i3);
+        this.temperature = f1;
+        this.humidity = f2;
+    }
+
+    // Manually initialize the biome because we can't use the fluent api called by BiomeBase
+    public SBiomeJungle(int i, boolean b, int i2, String name, int i3, float f1, float f2, BiomeTemperature bt) {
+        this(i, b, i2, name, i3, f1, f2);
+        this.a(bt);
     }
 
     @Override
     public void a(World world, Random random, int i, int j) {
         super.a(world, random, i, j);
+        // Only use SWorldGenVines in a Subterranea world
         WorldGenVines worldgenvines = world.worldProvider instanceof SWorldProvider ? new SWorldGenVines() : new WorldGenVines();
 
         for (int k = 0; k < 50; ++k) {

@@ -35,17 +35,20 @@ public class SChunkGenerator extends ChunkGenerator {
             world.worldProvider.a(world);
 
             // Patch biomes so ores have thicker bands
-            ReflectionUtil.setProtectedValue(BiomeBase.class, "EXTREME_HILLS", new SBiomeBigHills(3));
-            ReflectionUtil.setProtectedValue(BiomeBase.class, "JUNGLE", new SBiomeJungle(21));
-            ReflectionUtil.setProtectedValue(BiomeBase.class, "JUNGLE_HILLS", new SBiomeJungle(22));
+            ReflectionUtil.setProtectedValue(BiomeBase.class, "EXTREME_HILLS", new SBiomeBigHills(3, false, 6316128, "Extreme Hills", 0.2F, 0.3F, new BiomeTemperature(1.0F, 0.5F)));
+            ReflectionUtil.setProtectedValue(BiomeBase.class, "SMALL_MOUNTAINS", new SBiomeBigHills(20, true, 7501978, "Extreme Hills Edge", 0.2F, 0.3F, new BiomeTemperature(1.0F, 0.5F).a()));
+            ReflectionUtil.setProtectedValue(BiomeBase.class, "EXTREME_HILLS_PLUS", new SBiomeBigHills(34, true, 5271632, "Extreme Hills+", 0.2F, 0.3F, new BiomeTemperature(1.0F, 0.5F)));
 
-            ReflectionUtil.setProtectedValue(BiomeBase.class, BiomeBase.SWAMPLAND, "R", new SWorldGenSwampTree());
+            ReflectionUtil.setProtectedValue(BiomeBase.class, "JUNGLE", new SBiomeJungle(21, false, 5470985, "Jungle", 5470985, 0.95F, 0.9F));
+            ReflectionUtil.setProtectedValue(BiomeBase.class, "JUNGLE_HILLS", new SBiomeJungle(22, false, 2900485, "JungleHills", 5470985, 0.95F, 0.9F, new BiomeTemperature(0.45F, 0.3F)));
+            ReflectionUtil.setProtectedValue(BiomeBase.class, "JUNGLE_EDGE", new SBiomeJungle(23, true, 6458135, "JungleEdge", 5470985, 0.95F, 0.8F));
 
             // Patch common aspects of all biomes
-            for(BiomeBase b : BiomeBase.biomes) {
-                if (b != null && b.I.getClass() == BiomeDecorator.class) {  // Don't update the End or the Nether
+            BiomeBase[] biomes = ReflectionUtil.getProtectedValue(BiomeBase.class, "biomes");
+            for(BiomeBase b : biomes) {
+                if (b != null && b.ar.getClass() == BiomeDecorator.class) {  // Don't update the End or the Nether
                     // Patch the biome decorator
-                    b.I = new SBiomeDecorator(b, options);
+                    b.ar = new SBiomeDecorator(b, options);
                     // Patch biome entity lists
                     ArrayList<BiomeMeta> aquatics = ReflectionUtil.getProtectedValue(b, "L");
                     for(BiomeMeta meta : aquatics) {
