@@ -72,8 +72,14 @@ public class SChunkGenerator extends ChunkGenerator {
 
     @Override
     public byte[][] generateBlockSections(org.bukkit.World world, Random random, int x, int z, BiomeGrid biomes) {
-        SChunkProviderGenerate chunkProvider = lazyGetProvider(world);
-        return chunkProvider.getChunkSectionsAt(x, z);
+        try {
+            SChunkProviderGenerate chunkProvider = lazyGetProvider(world);
+            return chunkProvider.getChunkSectionsAt(x, z);
+        } catch (Exception e) {
+            plugin.getLogger().severe(e.getMessage());
+            e.printStackTrace();
+            return new byte[][] {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null};
+        }
     }
 
     public boolean canSpawn(org.bukkit.World world, int x, int z) {

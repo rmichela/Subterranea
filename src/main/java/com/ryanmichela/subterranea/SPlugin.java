@@ -9,7 +9,7 @@ import org.bukkit.craftbukkit.libs.joptsimple.OptionSet;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Copyright 2013 Ryan Michela
@@ -18,18 +18,26 @@ public class SPlugin extends JavaPlugin {
     @Override
     public void onLoad() {
         // Patch WorldGenFactory once, the first time the plugin loads
-        HashMap factoryA = ReflectionUtil.getProtectedValue(WorldGenFactory.class, "a");
-        HashMap factoryB = ReflectionUtil.getProtectedValue(WorldGenFactory.class, "b");
-        HashMap factoryC = ReflectionUtil.getProtectedValue(WorldGenFactory.class, "c");
-        HashMap factoryD = ReflectionUtil.getProtectedValue(WorldGenFactory.class, "d");
-        factoryA.put("Temple", SWorldGenLargeFeatureStart.class);
-        factoryB.put(SWorldGenLargeFeatureStart.class, "Temple");
-        factoryC.put("TeDP", SWorldGenPyramidPiece.class);
-        factoryD.put(SWorldGenPyramidPiece.class, "TeDP");
+        ReflectionUtil.invokeProtectedMethod(WorldGenFactory.class, "a", SWorldGenLargeFeatureStart.class, "Temple");
+        ReflectionUtil.invokeProtectedMethod(WorldGenFactory.class, "b", SWorldGenPyramidPiece.class, "TeDP");
 
         // Patch EntityTypes once, the first time the plugin loads
-        ReflectionUtil.invokeProtectedMethod(EntityTypes.class, "a", SEntitySlime.class, "Slime", 55, 5349438, 8306542);
-        ReflectionUtil.invokeProtectedMethod(EntityTypes.class, "a", SEntitySquid.class, "Squid", 94, 2243405, 7375001);
+        patchEntity(SEntitySlime.class, "Slime", 55, 5349438, 8306542);
+        patchEntity(SEntitySquid.class, "Squid", 94, 2243405, 7375001);
+    }
+
+    private void patchEntity(Class entityClass, String entityName, int entityId, int i2, int i3) {
+        Map c = ReflectionUtil.getProtectedValue(EntityTypes.class, "c");
+        Map d = ReflectionUtil.getProtectedValue(EntityTypes.class, "d");
+        Map e = ReflectionUtil.getProtectedValue(EntityTypes.class, "e");
+        Map f = ReflectionUtil.getProtectedValue(EntityTypes.class, "f");
+        Map g = ReflectionUtil.getProtectedValue(EntityTypes.class, "g");
+
+        c.put(entityName, entityClass);
+        d.put(entityClass, entityName);
+        e.put(entityId, entityClass);
+        f.put(entityClass, entityId);
+        g.put(entityName, entityId);
     }
 
     @Override

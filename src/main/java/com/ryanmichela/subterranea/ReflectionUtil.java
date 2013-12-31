@@ -1,6 +1,7 @@
 package com.ryanmichela.subterranea;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
@@ -89,6 +90,10 @@ public class ReflectionUtil {
             Method m = c.getDeclaredMethod(method, pTypes);
             m.setAccessible(true);
             return m.invoke(o, args);
+        }
+        catch (InvocationTargetException ex) {
+            System.out.println("*** " + c.getName() + "." + method + "(): " + ex.getTargetException());
+            return null;
         }
         catch (Exception ex) {
             System.out.println("*** " + c.getName() + "." + method + "(): " + ex);
