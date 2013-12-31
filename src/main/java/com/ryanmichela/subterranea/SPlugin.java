@@ -42,7 +42,6 @@ public class SPlugin extends JavaPlugin {
 
     @Override
     public ChunkGenerator getDefaultWorldGenerator(String worldName, String id) {
-        getLogger().info("Subterranea loaded for world " + worldName);
         if (id == null) {
             id = "";
         }

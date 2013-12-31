@@ -29,6 +29,7 @@ public class SChunkGenerator extends ChunkGenerator {
     {
         if (provider == null) {
             World world = ((CraftWorld)bukkitWorld).getHandle();
+            plugin.getLogger().info("Subterranea loaded for world " + bukkitWorld.getName());
 
             // Patch WorldProvider so structures generate at correct sea level
             world.worldProvider = new SWorldProvider();
@@ -50,13 +51,13 @@ public class SChunkGenerator extends ChunkGenerator {
                     // Patch the biome decorator
                     b.ar = new SBiomeDecorator(b, options);
                     // Patch biome entity lists
-                    ArrayList<BiomeMeta> aquatics = ReflectionUtil.getProtectedValue(b, "L");
+                    ArrayList<BiomeMeta> aquatics = ReflectionUtil.getProtectedValue(b, "au");
                     for(BiomeMeta meta : aquatics) {
                         if (meta.b == EntitySquid.class) {
                             meta.b = SEntitySquid.class;
                         }
                     }
-                    ArrayList<BiomeMeta> hostiles = ReflectionUtil.getProtectedValue(b, "J");
+                    ArrayList<BiomeMeta> hostiles = ReflectionUtil.getProtectedValue(b, "as");
                     for(BiomeMeta meta : hostiles) {
                         if (meta.b == EntitySlime.class) {
                             meta.b = SEntitySlime.class;
