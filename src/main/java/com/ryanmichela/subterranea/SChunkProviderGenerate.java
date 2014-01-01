@@ -9,7 +9,10 @@ import java.util.Random;
  * Copyright 2013 Ryan Michela
  */
 public class SChunkProviderGenerate extends ChunkProviderGenerate {
-    private final int BLOCKS_IN_HALF_CHUNK = 16 * 16 * 128;
+    private final int LAYERS_PER_CHUNK = 256;
+    private final int LAYERS_PER_HALF_CHUNK = 128;
+    private final int BLOCKS_PER_LAYER = 16 * 16;
+    private final int BLOCKS_PER_CHUNK = 16 * 16 * 256;
 
     public SChunkProviderGenerate(World world, long l, boolean b) {
         super(world, l, b);
@@ -25,7 +28,7 @@ public class SChunkProviderGenerate extends ChunkProviderGenerate {
         throw new UnsupportedOperationException();
     }
 
-    public byte[][] getChunkSectionsAt(int ii, int jj) {
+    public byte[][] getChunkSectionsAt(int xx, int zz) {
         Random i = ReflectionUtil.getProtectedValue(this, "i");
         World n = ReflectionUtil.getProtectedValue(this, "n");
         Boolean o = ReflectionUtil.getProtectedValue(this, "o");
@@ -37,33 +40,37 @@ public class SChunkProviderGenerate extends ChunkProviderGenerate {
         WorldGenBase y = ReflectionUtil.getProtectedValue(this, "y");
         BiomeBase[] z = ReflectionUtil.getProtectedValue(this, "z");
 
-        i.setSeed(ii * 341873128712L + jj * 132897987541L);
+        i.setSeed(xx * 341873128712L + zz * 132897987541L);
 
-        Block[] arrayOfBlock = new Block[65536];
-        byte[] arrayOfByte1 = new byte[65536];
+        Block[] initialWorld = new Block[BLOCKS_PER_CHUNK];
+        a(xx, zz, initialWorld);
 
-        a(ii, jj, arrayOfBlock);
+        // Note: data in the world array is stored as stacked columns, from the bottom of the world to the top,
+        // iterating over the 16x16 grid of the chunk.
 
         // Lift the generated terrain data by 128 layers
-        System.arraycopy(arrayOfBlock, 0, arrayOfBlock, BLOCKS_IN_HALF_CHUNK, BLOCKS_IN_HALF_CHUNK);
-        System.arraycopy(arrayOfByte1, 0, arrayOfByte1, BLOCKS_IN_HALF_CHUNK, BLOCKS_IN_HALF_CHUNK);
-        // Fill the lower half with stone
-        Arrays.fill(arrayOfBlock, 0, BLOCKS_IN_HALF_CHUNK, Blocks.STONE);
-        Arrays.fill(arrayOfByte1, 0, BLOCKS_IN_HALF_CHUNK, (byte)0);
-
-        z = n.getWorldChunkManager().getBiomeBlock(z, ii * 16, jj * 16, 16, 16);
-        a(ii, jj, arrayOfBlock, arrayOfByte1, z);
-
-        t.a(this, n, ii, jj, arrayOfBlock);
-        y.a(this, n, ii, jj, arrayOfBlock);
-        if (o) {
-            w.a(this, n, ii, jj, arrayOfBlock);
-            v.a(this, n, ii, jj, arrayOfBlock);
-            u.a(this, n, ii, jj, arrayOfBlock);
-            x.a(this, n, ii, jj, arrayOfBlock);
+        Block[] liftedWorld = new Block[BLOCKS_PER_CHUNK];
+        for (int ii = 0; ii < BLOCKS_PER_LAYER; ii++) {
+            // Bottom half
+            Arrays.fill(liftedWorld, LAYERS_PER_CHUNK * ii, LAYERS_PER_CHUNK * ii + LAYERS_PER_HALF_CHUNK, Blocks.STONE);
+            // Top half
+            System.arraycopy(initialWorld, LAYERS_PER_CHUNK*ii, liftedWorld, LAYERS_PER_CHUNK*ii + LAYERS_PER_HALF_CHUNK, LAYERS_PER_HALF_CHUNK);
         }
 
-        Chunk localChunk = new Chunk(n, arrayOfBlock, arrayOfByte1, ii, jj);
+        z = n.getWorldChunkManager().getBiomeBlock(z, xx * 16, zz * 16, 16, 16);
+        byte[] arrayOfByte1 = new byte[65536];
+        a(xx, zz, liftedWorld, arrayOfByte1, z);
+
+        t.a(this, n, xx, zz, liftedWorld);
+        y.a(this, n, xx, zz, liftedWorld);
+        if (o) {
+            w.a(this, n, xx, zz, liftedWorld);
+            v.a(this, n, xx, zz, liftedWorld);
+            u.a(this, n, xx, zz, liftedWorld);
+            x.a(this, n, xx, zz, liftedWorld);
+        }
+
+        Chunk localChunk = new Chunk(n, liftedWorld, arrayOfByte1, xx, zz);
         ChunkSection[] chunkSections = localChunk.i();
 
         byte[][] chunkSectionBytes = new byte[chunkSections.length][];
