@@ -18,8 +18,8 @@ public class SPlugin extends JavaPlugin {
     @Override
     public void onLoad() {
         // Patch WorldGenFactory once, the first time the plugin loads
-        ReflectionUtil.invokeProtectedMethod(WorldGenFactory.class, "a", SWorldGenLargeFeatureStart.class, "Temple");
-        ReflectionUtil.invokeProtectedMethod(WorldGenFactory.class, "b", SWorldGenPyramidPiece.class, "TeDP");
+        ReflectionUtil.invokeProtectedMethod(WorldGenFactory.class, "a", SWorldGenPyramidPiece.class, "TeDP");
+        ReflectionUtil.invokeProtectedMethod(WorldGenFactory.class, "b", SWorldGenLargeFeatureStart.class, "Temple");
 
         // Patch EntityTypes once, the first time the plugin loads
         patchEntity(SEntitySlime.class, "Slime", 55, 5349438, 8306542);

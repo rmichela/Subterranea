@@ -13,25 +13,21 @@ public class SWorldGenLargeFeatureStart extends StructureStart {
         super();
     }
 
-    public SWorldGenLargeFeatureStart(World world, Random random, int i, int j) {
-        BiomeBase biomebase = world.getBiome(i * 16 + 8, j * 16 + 8);
-
-        if (biomebase != BiomeBase.JUNGLE && biomebase != BiomeBase.JUNGLE_HILLS) {
-            if (biomebase == BiomeBase.SWAMPLAND) {
-                WorldGenWitchHut worldgenwitchhut = new WorldGenWitchHut(random, i * 16, j * 16);
-
-                this.a.add(worldgenwitchhut);
-            } else {
-                WorldGenPyramidPiece worldgenpyramidpiece = new SWorldGenPyramidPiece(random, i * 16, j * 16);
-
-                this.a.add(worldgenpyramidpiece);
-            }
+    public SWorldGenLargeFeatureStart(World paramWorld, Random paramRandom, int paramInt1, int paramInt2) {
+        super(paramInt1, paramInt2);
+        BiomeBase localBiomeBase = paramWorld.getBiome(paramInt1 * 16 + 8, paramInt2 * 16 + 8);
+        Object localObject;
+        if ((localBiomeBase == BiomeBase.JUNGLE) || (localBiomeBase == BiomeBase.JUNGLE_HILLS)) {
+            localObject = new WorldGenJungleTemple(paramRandom, paramInt1 * 16, paramInt2 * 16);
+            this.a.add(localObject);
+        } else if (localBiomeBase == BiomeBase.SWAMPLAND) {
+            localObject = new WorldGenWitchHut(paramRandom, paramInt1 * 16, paramInt2 * 16);
+            this.a.add(localObject);
         } else {
-            WorldGenJungleTemple worldgenjungletemple = new WorldGenJungleTemple(random, i * 16, j * 16);
-
-            this.a.add(worldgenjungletemple);
+            localObject = new SWorldGenPyramidPiece(paramRandom, paramInt1 * 16, paramInt2 * 16);
+            this.a.add(localObject);
         }
 
-        this.c();
+        c();
     }
 }
