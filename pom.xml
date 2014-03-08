@@ -50,7 +50,7 @@
         <dependency>
             <groupId>com.ryanmichela</groupId>
             <artifactId>GiantCaves</artifactId>
-            <version>1.6.4-R01</version>
+            <version>1.7.2-R01</version>
             <scope>provided</scope>
             <type>jar</type>
         </dependency>

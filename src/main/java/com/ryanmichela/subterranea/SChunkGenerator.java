@@ -44,6 +44,10 @@ public class SChunkGenerator extends ChunkGenerator {
             ReflectionUtil.setProtectedValue(BiomeBase.class, "JUNGLE_HILLS", new SBiomeJungle(22, false, 2900485, "JungleHills", 5470985, 0.95F, 0.9F, new BiomeTemperature(0.45F, 0.3F)));
             ReflectionUtil.setProtectedValue(BiomeBase.class, "JUNGLE_EDGE", new SBiomeJungle(23, true, 6458135, "JungleEdge", 5470985, 0.95F, 0.8F));
 
+            ReflectionUtil.setProtectedValue(BiomeBase.class, "MESA", new SBiomeMesa(37, false, false));
+            ReflectionUtil.setProtectedValue(BiomeBase.class, "MESA_PLATEAU_F", new SBiomeMesaPlateauF(38, false, true));
+            ReflectionUtil.setProtectedValue(BiomeBase.class, "MESA_PLATEAU", new SBiomeMesaPlateau(39, false, false));
+
             // Patch common aspects of all biomes
             BiomeBase[] biomes = ReflectionUtil.getProtectedValue(BiomeBase.class, "biomes");
             for(BiomeBase b : biomes) {
