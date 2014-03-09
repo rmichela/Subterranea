@@ -25,6 +25,7 @@ public abstract class SBiomeMesaBase extends BiomeMesa {
     }
 
     public void a(World world, Random random, Block[] ablock, byte[] abyte, int i, int j, double d0) {
+
         if (this.aC == null || this.aD != world.getSeed()) {
             this.a(world.getSeed());
         }
@@ -72,7 +73,7 @@ public abstract class SBiomeMesaBase extends BiomeMesa {
         boolean flag2 = false;
         int k1 = ablock.length / 256;
 
-        for (int l1 = 255; l1 >= 0; --l1) {
+        for (int l1 = 255; l1 >= 128; --l1) {
             int i2 = (l * 16 + k) * k1 + l1;
 
             if ((ablock[i2] == null || ablock[i2].getMaterial() == Material.AIR) && l1 < (int) d1) {
@@ -241,6 +242,6 @@ public abstract class SBiomeMesaBase extends BiomeMesa {
     private byte d(int i, int j, int k) {
         int l = (int) Math.round(this.aG.a((double) i * 1.0D / 512.0D, (double) i * 1.0D / 512.0D) * 2.0D);
 
-        return this.aC[(j + l + 64) % 64];
+        return this.aC[(j + l + 64 - 128) % 64]; // -128
     }
 }

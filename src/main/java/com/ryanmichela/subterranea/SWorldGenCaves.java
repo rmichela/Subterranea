@@ -120,7 +120,8 @@ public class SWorldGenCaves extends WorldGenBase {
                             Block block1 = ablock[l4];
                             if (block1 == Blocks.GRASS)
                                 flag3 = true;
-                            if (block1 == Blocks.STONE || block1 == Blocks.DIRT || block1 == Blocks.GRASS)
+                            if (block1 == Blocks.STONE || block1 == Blocks.DIRT || block1 == Blocks.GRASS
+                                    || block1 == Blocks.HARDENED_CLAY || block1 == Blocks.STAINED_HARDENED_CLAY) // Added this line
                                 if (i5 < 20) { //20=10
                                     ablock[l4] = Blocks.STATIONARY_LAVA;
                                 } else {

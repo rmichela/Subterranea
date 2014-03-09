@@ -32,7 +32,7 @@ public class SChunkProviderGenerate extends ChunkProviderGenerate {
         Random i = ReflectionUtil.getProtectedValue(this, "i");
         World n = ReflectionUtil.getProtectedValue(this, "n");
         Boolean o = ReflectionUtil.getProtectedValue(this, "o");
-        WorldGenBase t = ReflectionUtil.getProtectedValue(this, "t");
+        WorldGenBase t = new SWorldGenCaves();//ReflectionUtil.getProtectedValue(this, "t");
         WorldGenStronghold u = ReflectionUtil.getProtectedValue(this, "u");
         WorldGenVillage v = ReflectionUtil.getProtectedValue(this, "v");
         WorldGenMineshaft w = ReflectionUtil.getProtectedValue(this, "w");
