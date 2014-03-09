@@ -25,6 +25,12 @@ public abstract class SBiomeMesaBase extends BiomeMesa {
     }
 
     public void a(World world, Random random, Block[] ablock, byte[] abyte, int i, int j, double d0) {
+        if (!(world.worldProvider instanceof SWorldProvider)) {
+            // Only affect Subterranea worlds
+            super.a(world, random, ablock, abyte, i, j, d0);
+            return;
+        }
+
 
         if (this.aC == null || this.aD != world.getSeed()) {
             this.a(world.getSeed());
@@ -58,7 +64,7 @@ public abstract class SBiomeMesaBase extends BiomeMesa {
                     d1 = d5;
                 }
 
-                d1 += 64.0D;
+                d1 += 64.0D + 128; // +128
             }
         }
 
@@ -73,7 +79,7 @@ public abstract class SBiomeMesaBase extends BiomeMesa {
         boolean flag2 = false;
         int k1 = ablock.length / 256;
 
-        for (int l1 = 255; l1 >= 128; --l1) {
+        for (int l1 = 255; l1 >= 0; --l1) {
             int i2 = (l * 16 + k) * k1 + l1;
 
             if ((ablock[i2] == null || ablock[i2].getMaterial() == Material.AIR) && l1 < (int) d1) {
@@ -94,27 +100,27 @@ public abstract class SBiomeMesaBase extends BiomeMesa {
                             if (i1 <= 0) {
                                 block = null;
                                 block1 = Blocks.STONE;
-                            } else if (l1 >= 59 && l1 <= 64) {
+                            } else if (l1 >= 59 + 128 && l1 <= 64 + 128) { // +128
                                 block = Blocks.STAINED_HARDENED_CLAY;
                                 block1 = this.ak;
                             }
 
-                            if (l1 < 63 && (block == null || block.getMaterial() == Material.AIR)) {
+                            if (l1 < 63 + 128 && (block == null || block.getMaterial() == Material.AIR)) { // +128
                                 block = Blocks.STATIONARY_WATER;
                             }
 
-                            j1 = i1 + Math.max(0, l1 - 63);
-                            if (l1 >= 62) {
-                                if (this.aI && l1 > 86 + i1 * 2) {
+                            j1 = i1 + Math.max(0, l1 - 63 - 128); // -128
+                            if (l1 >= 62 + 128) { // +128
+                                if (this.aI && l1 > 86 + i1 * 2 + 128) { // +128
                                     if (flag1) {
                                         ablock[i2] = Blocks.DIRT;
                                         abyte[i2] = 1;
                                     } else {
                                         ablock[i2] = Blocks.GRASS;
                                     }
-                                } else if (l1 > 66 + i1) {
+                                } else if (l1 > 66 + i1 + 128) { // +128
                                     b0 = 16;
-                                    if (l1 >= 64 && l1 <= 127) {
+                                    if (l1 >= 64 + 128 && l1 <= 127 + 128) { // +128
                                         if (!flag1) {
                                             b0 = this.d(i, l1, j);
                                         }
@@ -237,11 +243,17 @@ public abstract class SBiomeMesaBase extends BiomeMesa {
                 }
             }
         }
+
+        ////////
+        for (int ii = 0; ii < 64; ii++) {
+            System.out.println(ii + ":" + aC[ii]);
+        }
     }
 
     private byte d(int i, int j, int k) {
+        j = j - 128;
         int l = (int) Math.round(this.aG.a((double) i * 1.0D / 512.0D, (double) i * 1.0D / 512.0D) * 2.0D);
 
-        return this.aC[(j + l + 64 - 128) % 64]; // -128
+        return this.aC[(j + l + 64) % 64];
     }
 }
