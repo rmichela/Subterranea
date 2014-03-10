@@ -1,5 +1,10 @@
 package com.ryanmichela.subterranea;
 
+import com.ryanmichela.subterranea.entity.SEntitySlime;
+import com.ryanmichela.subterranea.entity.SEntitySquid;
+import com.ryanmichela.subterranea.worldgen.SWorldGenLargeFeatureStart;
+import com.ryanmichela.subterranea.worldgen.SWorldGenPyramidPiece;
+import com.ryanmichela.subterranea.worldgen.SWorldProvider;
 import net.minecraft.server.v1_7_R1.*;
 import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.libs.joptsimple.OptionException;
@@ -13,7 +18,6 @@ import org.bukkit.event.world.ChunkLoadEvent;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.Arrays;
 import java.util.Map;
 
 /**

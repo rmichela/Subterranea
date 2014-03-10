@@ -1,5 +1,7 @@
-package com.ryanmichela.subterranea;
+package com.ryanmichela.subterranea.biome;
 
+import com.ryanmichela.subterranea.ReflectionUtil;
+import com.ryanmichela.subterranea.worldgen.SWorldProvider;
 import net.minecraft.server.v1_7_R1.*;
 
 import java.util.Random;
@@ -7,10 +9,10 @@ import java.util.Random;
 /**
  * Copyright 2013 Ryan Michela
  */
-public class SBiomeBigHills extends BiomeBigHills {
+public class SBiomeBigHillsBase extends BiomeBigHills {
 
     // Manually initialize the biome because we can't use the fluent api called by BiomeBase
-    public SBiomeBigHills(int i, boolean b, int i2, String name, float f1, float f2) {
+    public SBiomeBigHillsBase(int i, boolean b, int i2, String name, float f1, float f2) {
         super(i, b);
         this.b(i2);
         this.a(name);
@@ -19,7 +21,7 @@ public class SBiomeBigHills extends BiomeBigHills {
     }
 
     // Manually initialize the biome because we can't use the fluent api called by BiomeBase
-    public SBiomeBigHills(int i, boolean b, int i2, String name, float f1, float f2, BiomeTemperature bt) {
+    public SBiomeBigHillsBase(int i, boolean b, int i2, String name, float f1, float f2, BiomeTemperature bt) {
         this(i, b, i2, name, f1, f2);
         this.a(bt);
     }
@@ -41,7 +43,7 @@ public class SBiomeBigHills extends BiomeBigHills {
             int k1 = i + random.nextInt(16);
             int i2 = random.nextInt(64);
             int k2 = j + random.nextInt(16);
-            ((WorldGenerator)ReflectionUtil.getProtectedValue(this, "aC")).a(world, random, k1, i2, k2);
+            ((WorldGenerator) ReflectionUtil.getProtectedValue(this, "aC")).a(world, random, k1, i2, k2);
         }
     }
 }

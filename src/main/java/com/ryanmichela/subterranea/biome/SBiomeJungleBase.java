@@ -1,5 +1,7 @@
-package com.ryanmichela.subterranea;
+package com.ryanmichela.subterranea.biome;
 
+import com.ryanmichela.subterranea.worldgen.SWorldGenVines;
+import com.ryanmichela.subterranea.worldgen.SWorldProvider;
 import net.minecraft.server.v1_7_R1.*;
 
 import java.util.Random;
@@ -7,9 +9,9 @@ import java.util.Random;
 /**
  * Copyright 2013 Ryan Michela
  */
-public class SBiomeJungle extends BiomeJungle {
+public abstract class SBiomeJungleBase extends BiomeJungle {
     // Manually initialize the biome because we can't use the fluent api called by BiomeBase
-    public SBiomeJungle(int i, boolean b, int i2, String name, int i3, float f1, float f2) {
+    public SBiomeJungleBase(int i, boolean b, int i2, String name, int i3, float f1, float f2) {
         super(i, b);
         this.b(i2);
         this.a(name);
@@ -19,7 +21,7 @@ public class SBiomeJungle extends BiomeJungle {
     }
 
     // Manually initialize the biome because we can't use the fluent api called by BiomeBase
-    public SBiomeJungle(int i, boolean b, int i2, String name, int i3, float f1, float f2, BiomeTemperature bt) {
+    public SBiomeJungleBase(int i, boolean b, int i2, String name, int i3, float f1, float f2, BiomeTemperature bt) {
         this(i, b, i2, name, i3, f1, f2);
         this.a(bt);
     }

@@ -1,11 +1,11 @@
-package com.ryanmichela.subterranea;
+package com.ryanmichela.subterranea.biome;
 
 /**
  * Created by rmichela on 3/7/14.
  */
 public class SBiomeMesa extends SBiomeMesaBase {
-    public SBiomeMesa(int i, boolean b, boolean b2) {
-        super(i, b, b2);
+    public SBiomeMesa() {
+        super(37, false, false);
         this.b(14238997);
         this.a("Mesa");
     }

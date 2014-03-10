@@ -1,5 +1,6 @@
-package com.ryanmichela.subterranea;
+package com.ryanmichela.subterranea.biome;
 
+import com.ryanmichela.subterranea.worldgen.SWorldProvider;
 import net.minecraft.server.v1_7_R1.*;
 
 import java.util.Arrays;

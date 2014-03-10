@@ -1,4 +1,4 @@
-package com.ryanmichela.subterranea;
+package com.ryanmichela.subterranea.entity;
 
 import net.minecraft.server.v1_7_R1.EntitySquid;
 import net.minecraft.server.v1_7_R1.World;

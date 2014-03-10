@@ -1,5 +1,8 @@
-package com.ryanmichela.subterranea;
+package com.ryanmichela.subterranea.biome;
 
+import com.ryanmichela.subterranea.GeneratorOptions;
+import com.ryanmichela.subterranea.ReflectionUtil;
+import com.ryanmichela.subterranea.worldgen.SWorldProvider;
 import net.minecraft.server.v1_7_R1.*;
 
 /**

@@ -1,4 +1,4 @@
-package com.ryanmichela.subterranea;
+package com.ryanmichela.subterranea.worldgen;
 
 import net.minecraft.server.v1_7_R1.StructureStart;
 import net.minecraft.server.v1_7_R1.WorldGenLargeFeature;

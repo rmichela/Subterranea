@@ -3,6 +3,10 @@ package com.ryanmichela.subterranea;
 import com.ryanmichela.giantcaves.Config;
 import com.ryanmichela.giantcaves.GiantCavePopulator;
 import com.ryanmichela.moresilverfish.SilverfishPopulator;
+import com.ryanmichela.subterranea.biome.*;
+import com.ryanmichela.subterranea.entity.SEntitySlime;
+import com.ryanmichela.subterranea.entity.SEntitySquid;
+import com.ryanmichela.subterranea.worldgen.SWorldProvider;
 import com.ryanmichela.undergroundbiomes.UndergroundBiomePopulator;
 import net.minecraft.server.v1_7_R1.*;
 import org.bukkit.craftbukkit.v1_7_R1.CraftWorld;
@@ -37,18 +41,18 @@ public class SChunkGenerator extends ChunkGenerator {
             world.worldProvider = new SWorldProvider();
             world.worldProvider.a(world);
 
-            // Patch biomes so ores have thicker bands
-            ReflectionUtil.setProtectedValue(BiomeBase.class, "EXTREME_HILLS", new SBiomeBigHills(3, false, 6316128, "Extreme Hills", 0.2F, 0.3F, new BiomeTemperature(1.0F, 0.5F)));
-            ReflectionUtil.setProtectedValue(BiomeBase.class, "SMALL_MOUNTAINS", new SBiomeBigHills(20, true, 7501978, "Extreme Hills Edge", 0.2F, 0.3F, new BiomeTemperature(1.0F, 0.5F).a()));
-            ReflectionUtil.setProtectedValue(BiomeBase.class, "EXTREME_HILLS_PLUS", new SBiomeBigHills(34, true, 5271632, "Extreme Hills+", 0.2F, 0.3F, new BiomeTemperature(1.0F, 0.5F)));
+            // Patch biomes
+            ReflectionUtil.setProtectedValue(BiomeBase.class, "EXTREME_HILLS", new SBiomeExtremeHills());
+            ReflectionUtil.setProtectedValue(BiomeBase.class, "SMALL_MOUNTAINS", new SBiomeSmallMountains());
+            ReflectionUtil.setProtectedValue(BiomeBase.class, "EXTREME_HILLS_PLUS", new SBiomeExtremeHillsPlus());
 
-            ReflectionUtil.setProtectedValue(BiomeBase.class, "JUNGLE", new SBiomeJungle(21, false, 5470985, "Jungle", 5470985, 0.95F, 0.9F));
-            ReflectionUtil.setProtectedValue(BiomeBase.class, "JUNGLE_HILLS", new SBiomeJungle(22, false, 2900485, "JungleHills", 5470985, 0.95F, 0.9F, new BiomeTemperature(0.45F, 0.3F)));
-            ReflectionUtil.setProtectedValue(BiomeBase.class, "JUNGLE_EDGE", new SBiomeJungle(23, true, 6458135, "JungleEdge", 5470985, 0.95F, 0.8F));
+            ReflectionUtil.setProtectedValue(BiomeBase.class, "JUNGLE", new SBiomeJungle());
+            ReflectionUtil.setProtectedValue(BiomeBase.class, "JUNGLE_HILLS", new SBiomeJungleHills());
+            ReflectionUtil.setProtectedValue(BiomeBase.class, "JUNGLE_EDGE", new SBiomeJungleEdge());
 
-            ReflectionUtil.setProtectedValue(BiomeBase.class, "MESA", new SBiomeMesa(37, false, false));
-            ReflectionUtil.setProtectedValue(BiomeBase.class, "MESA_PLATEAU_F", new SBiomeMesaPlateauF(38, false, true));
-            ReflectionUtil.setProtectedValue(BiomeBase.class, "MESA_PLATEAU", new SBiomeMesaPlateau(39, false, false));
+            ReflectionUtil.setProtectedValue(BiomeBase.class, "MESA", new SBiomeMesa());
+            ReflectionUtil.setProtectedValue(BiomeBase.class, "MESA_PLATEAU_F", new SBiomeMesaPlateauF());
+            ReflectionUtil.setProtectedValue(BiomeBase.class, "MESA_PLATEAU", new SBiomeMesaPlateau());
 
             // Patch common aspects of all biomes
             BiomeBase[] biomes = ReflectionUtil.getProtectedValue(BiomeBase.class, "biomes");
