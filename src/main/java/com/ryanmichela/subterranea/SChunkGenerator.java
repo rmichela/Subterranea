@@ -19,10 +19,12 @@ public class SChunkGenerator extends ChunkGenerator {
     private static SChunkProviderGenerate provider = null;
     private final Plugin plugin;
     private final GeneratorOptions options;
+    private final ChunkDataCache chunkDataCache;
 
-    public SChunkGenerator(Plugin plugin, GeneratorOptions options) {
+    public SChunkGenerator(Plugin plugin, GeneratorOptions options, ChunkDataCache chunkDataCache) {
         this.plugin = plugin;
         this.options = options;
+        this.chunkDataCache = chunkDataCache;
     }
 
     public SChunkProviderGenerate lazyGetProvider(org.bukkit.World bukkitWorld)
@@ -79,7 +81,20 @@ public class SChunkGenerator extends ChunkGenerator {
     public byte[][] generateBlockSections(org.bukkit.World world, Random random, int x, int z, BiomeGrid biomes) {
         try {
             SChunkProviderGenerate chunkProvider = lazyGetProvider(world);
-            return chunkProvider.getChunkSectionsAt(x, z);
+            ChunkSection[] chunkSections = chunkProvider.getChunkSectionsAt(x, z);
+
+            chunkDataCache.storeChunkData(x, z, chunkSections);
+
+            // Extract and return base chunk data
+            byte[][] chunkSectionBytes = new byte[chunkSections.length][];
+            for(int k = 0; k < chunkSectionBytes.length; k++) {
+                if (chunkSections[k] != null) {
+                    chunkSectionBytes[k] = chunkSections[k].getIdArray();
+                } else {
+                    chunkSectionBytes[k] = null;
+                }
+            }
+            return chunkSectionBytes;
         } catch (Exception e) {
             plugin.getLogger().severe(e.getMessage());
             e.printStackTrace();

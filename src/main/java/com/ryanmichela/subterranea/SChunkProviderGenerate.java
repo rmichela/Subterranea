@@ -28,7 +28,7 @@ public class SChunkProviderGenerate extends ChunkProviderGenerate {
         throw new UnsupportedOperationException();
     }
 
-    public byte[][] getChunkSectionsAt(int xx, int zz) {
+    public ChunkSection[] getChunkSectionsAt(int xx, int zz) {
         Random i = ReflectionUtil.getProtectedValue(this, "i");
         World n = ReflectionUtil.getProtectedValue(this, "n");
         Boolean o = ReflectionUtil.getProtectedValue(this, "o");
@@ -58,8 +58,8 @@ public class SChunkProviderGenerate extends ChunkProviderGenerate {
         }
 
         z = n.getWorldChunkManager().getBiomeBlock(z, xx * 16, zz * 16, 16, 16);
-        byte[] arrayOfByte1 = new byte[65536];
-        a(xx, zz, liftedWorld, arrayOfByte1, z);
+        byte[] blockData = new byte[65536];
+        a(xx, zz, liftedWorld, blockData, z);
 
         t.a(this, n, xx, zz, liftedWorld);
         y.a(this, n, xx, zz, liftedWorld);
@@ -70,17 +70,7 @@ public class SChunkProviderGenerate extends ChunkProviderGenerate {
             x.a(this, n, xx, zz, liftedWorld);
         }
 
-        Chunk localChunk = new Chunk(n, liftedWorld, arrayOfByte1, xx, zz);
-        ChunkSection[] chunkSections = localChunk.i();
-
-        byte[][] chunkSectionBytes = new byte[chunkSections.length][];
-        for(int k = 0; k < chunkSectionBytes.length; k++) {
-            if (chunkSections[k] != null) {
-                chunkSectionBytes[k] = chunkSections[k].getIdArray();
-            } else {
-                chunkSectionBytes[k] = null;
-            }
-        }
-        return chunkSectionBytes;
+        Chunk localChunk = new Chunk(n, liftedWorld, blockData, xx, zz);
+        return localChunk.i();
     }
 }

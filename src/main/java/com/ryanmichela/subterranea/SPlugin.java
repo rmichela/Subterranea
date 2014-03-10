@@ -1,20 +1,27 @@
 package com.ryanmichela.subterranea;
 
-import net.minecraft.server.v1_7_R1.EntityTypes;
-import net.minecraft.server.v1_7_R1.WorldGenFactory;
+import net.minecraft.server.v1_7_R1.*;
 import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.libs.joptsimple.OptionException;
 import org.bukkit.craftbukkit.libs.joptsimple.OptionParser;
 import org.bukkit.craftbukkit.libs.joptsimple.OptionSet;
+import org.bukkit.craftbukkit.v1_7_R1.CraftChunk;
+import org.bukkit.craftbukkit.v1_7_R1.CraftWorld;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.world.ChunkLoadEvent;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Arrays;
 import java.util.Map;
 
 /**
  * Copyright 2013 Ryan Michela
  */
-public class SPlugin extends JavaPlugin {
+public class SPlugin extends JavaPlugin implements Listener {
+    private final ChunkDataCache chunkDataCache = new ChunkDataCache();
+
     @Override
     public void onLoad() {
         // Patch WorldGenFactory once, the first time the plugin loads
@@ -24,6 +31,11 @@ public class SPlugin extends JavaPlugin {
         // Patch EntityTypes once, the first time the plugin loads
         patchEntity(SEntitySlime.class, "Slime", 55, 5349438, 8306542);
         patchEntity(SEntitySquid.class, "Squid", 94, 2243405, 7375001);
+    }
+
+    @Override
+    public void onEnable() {
+        getServer().getPluginManager().registerEvents(this, this);
     }
 
     private void patchEntity(Class entityClass, String entityName, int entityId, int i2, int i3) {
@@ -38,6 +50,23 @@ public class SPlugin extends JavaPlugin {
         e.put(entityId, entityClass);
         f.put(entityClass, entityId);
         g.put(entityName, entityId);
+    }
+
+    @EventHandler
+    public void OnChunkLoad(ChunkLoadEvent event) {
+        // The custom chunk generator API does not pass through the block data info to the world.
+        // As a solution, block data is cached until after the chunk is generated and then reapplied.
+        if (event.isNewChunk() && ((CraftWorld)event.getChunk().getWorld()).getHandle().worldProvider instanceof SWorldProvider) {
+            Chunk nmsChunk = ((CraftChunk)event.getChunk()).getHandle();
+            ChunkSection[] nmsSections = nmsChunk.i();
+            ChunkSection[] chunkData = chunkDataCache.claimChunkData(event.getChunk().getX(), event.getChunk().getZ());
+
+            for(int i = 0; i < 16; i++) {
+                if (nmsSections[i] != null && chunkData[i] != null) {
+                    nmsSections[i].setDataArray(chunkData[i].getDataArray());
+                }
+            }
+        }
     }
 
     @Override
@@ -80,7 +109,7 @@ public class SPlugin extends JavaPlugin {
             options.caveSettings = (String)optionSet.valueOf("giant-caves");
             options.oreMultiplier = (Integer)optionSet.valueOf("ore-multiplier");
 
-            return new SChunkGenerator(this, options);
+            return new SChunkGenerator(this, options, chunkDataCache);
         } catch (OptionException ex) {
             getLogger().severe(ChatColor.RED + "Failed to parse generator options: " + id);
         }
