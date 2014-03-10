@@ -64,7 +64,7 @@ public abstract class SBiomeMesaBase extends BiomeMesa {
                     d1 = d5;
                 }
 
-                d1 += 64.0D + 128; // +128
+                d1 += 64.0D;
             }
         }
 
@@ -82,7 +82,7 @@ public abstract class SBiomeMesaBase extends BiomeMesa {
         for (int l1 = 255; l1 >= 0; --l1) {
             int i2 = (l * 16 + k) * k1 + l1;
 
-            if ((ablock[i2] == null || ablock[i2].getMaterial() == Material.AIR) && l1 < (int) d1) {
+            if ((ablock[i2] == null || ablock[i2].getMaterial() == Material.AIR) && l1 < (int) d1 + 128) { // +128
                 ablock[i2] = Blocks.STONE;
             }
 
@@ -243,15 +243,9 @@ public abstract class SBiomeMesaBase extends BiomeMesa {
                 }
             }
         }
-
-        ////////
-        for (int ii = 0; ii < 64; ii++) {
-            System.out.println(ii + ":" + aC[ii]);
-        }
     }
 
     private byte d(int i, int j, int k) {
-        j = j - 128;
         int l = (int) Math.round(this.aG.a((double) i * 1.0D / 512.0D, (double) i * 1.0D / 512.0D) * 2.0D);
 
         return this.aC[(j + l + 64) % 64];
