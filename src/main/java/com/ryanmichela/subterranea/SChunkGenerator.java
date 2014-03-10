@@ -90,7 +90,7 @@ public class SChunkGenerator extends ChunkGenerator {
             SChunkProviderGenerate chunkProvider = lazyGetProvider(world);
             ChunkSection[] chunkSections = chunkProvider.getChunkSectionsAt(x, z);
 
-            chunkDataCache.storeChunkData(x, z, chunkSections);
+            chunkDataCache.storeChunkData(chunkSections);
 
             // Extract and return base chunk data
             byte[][] chunkSectionBytes = new byte[chunkSections.length][];

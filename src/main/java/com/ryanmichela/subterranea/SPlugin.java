@@ -63,7 +63,7 @@ public class SPlugin extends JavaPlugin implements Listener {
         if (event.isNewChunk() && ((CraftWorld)event.getChunk().getWorld()).getHandle().worldProvider instanceof SWorldProvider) {
             Chunk nmsChunk = ((CraftChunk)event.getChunk()).getHandle();
             ChunkSection[] nmsSections = nmsChunk.i();
-            ChunkSection[] chunkData = chunkDataCache.claimChunkData(event.getChunk().getX(), event.getChunk().getZ());
+            ChunkSection[] chunkData = chunkDataCache.claimChunkData();
 
             for(int i = 0; i < 16; i++) {
                 if (nmsSections[i] != null && chunkData[i] != null) {
