@@ -1,6 +1,6 @@
 package com.ryanmichela.subterranea.biome;
 
-import net.minecraft.server.v1_7_R1.*;
+import net.minecraft.server.v1_7_R2.*;
 
 import java.util.Random;
 

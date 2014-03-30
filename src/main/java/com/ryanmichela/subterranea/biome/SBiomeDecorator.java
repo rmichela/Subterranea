@@ -3,7 +3,7 @@ package com.ryanmichela.subterranea.biome;
 import com.ryanmichela.subterranea.GeneratorOptions;
 import com.ryanmichela.subterranea.ReflectionUtil;
 import com.ryanmichela.subterranea.worldgen.SWorldProvider;
-import net.minecraft.server.v1_7_R1.*;
+import net.minecraft.server.v1_7_R2.*;
 
 /**
  * Copyright 2013 Ryan Michela

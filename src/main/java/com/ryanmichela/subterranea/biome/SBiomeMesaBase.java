@@ -1,7 +1,7 @@
 package com.ryanmichela.subterranea.biome;
 
 import com.ryanmichela.subterranea.worldgen.SWorldProvider;
-import net.minecraft.server.v1_7_R1.*;
+import net.minecraft.server.v1_7_R2.*;
 
 import java.util.Arrays;
 import java.util.Random;
