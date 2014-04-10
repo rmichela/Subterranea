@@ -8,7 +8,7 @@
     <groupId>com.ryanmichela</groupId>
     <artifactId>Subterranea</artifactId>
     <name>Subterranea</name>
-    <version>1.7.2-R02</version>
+    <version>1.7.2-R03</version>
     <url>http://dev.bukkit.org/server-mods/subterranea/</url>
 
     <properties>
