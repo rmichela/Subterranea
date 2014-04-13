@@ -1,6 +1,6 @@
 package com.ryanmichela.subterranea.worldgen;
 
-import net.minecraft.server.v1_7_R2.*;
+import net.minecraft.server.v1_7_R3.*;
 
 import java.util.Random;
 

@@ -1,6 +1,6 @@
 package com.ryanmichela.subterranea.biome;
 
-import net.minecraft.server.v1_7_R2.BiomeTemperature;
+import net.minecraft.server.v1_7_R3.BiomeTemperature;
 
 /**
  * Created by rmichela on 3/10/14.

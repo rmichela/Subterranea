@@ -1,6 +1,6 @@
 package com.ryanmichela.subterranea.entity;
 
-import net.minecraft.server.v1_7_R2.*;
+import net.minecraft.server.v1_7_R3.*;
 
 /**
  * Copyright 2013 Ryan Michela

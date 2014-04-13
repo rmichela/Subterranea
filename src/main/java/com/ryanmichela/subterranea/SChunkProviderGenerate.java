@@ -1,7 +1,7 @@
 package com.ryanmichela.subterranea;
 
 import com.ryanmichela.subterranea.worldgen.SWorldGenCaves;
-import net.minecraft.server.v1_7_R2.*;
+import net.minecraft.server.v1_7_R3.*;
 
 import java.util.Arrays;
 import java.util.Random;
