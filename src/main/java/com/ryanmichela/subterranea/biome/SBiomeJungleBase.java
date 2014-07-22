@@ -2,7 +2,7 @@ package com.ryanmichela.subterranea.biome;
 
 import com.ryanmichela.subterranea.worldgen.SWorldGenVines;
 import com.ryanmichela.subterranea.worldgen.SWorldProvider;
-import net.minecraft.server.v1_7_R3.*;
+import net.minecraft.server.v1_7_R4.*;
 
 import java.util.Random;
 
@@ -37,7 +37,7 @@ public abstract class SBiomeJungleBase extends BiomeJungle {
             byte b0 = 64;
             int i1 = j + random.nextInt(16) + 8;
 
-            worldgenvines.a(world, random, l, b0, i1);
+            worldgenvines.generate(world, random, l, b0, i1);
         }
     }
 }

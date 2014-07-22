@@ -1,6 +1,6 @@
 package com.ryanmichela.subterranea.worldgen;
 
-import net.minecraft.server.v1_7_R3.*;
+import net.minecraft.server.v1_7_R4.*;
 
 import java.util.Random;
 
@@ -9,7 +9,7 @@ import java.util.Random;
  */
 public class SWorldGenVines extends WorldGenVines {
     @Override
-    public boolean a(World world, Random random, int i, int j, int k) {
+    public boolean generate(World world, Random random, int i, int j, int k) {
         int l = i;
         int i1 = k;
         label0:

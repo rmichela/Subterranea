@@ -8,7 +8,7 @@
     <groupId>com.ryanmichela</groupId>
     <artifactId>Subterranea</artifactId>
     <name>Subterranea</name>
-    <version>1.7.8-R01</version>
+    <version>1.7.10-R0.1</version>
     <url>http://dev.bukkit.org/server-mods/subterranea/</url>
 
     <properties>
@@ -47,14 +47,14 @@
         <dependency>
             <groupId>org.bukkit</groupId>
             <artifactId>craftbukkit</artifactId>
-            <version>1.7.8-R0.1-SNAPSHOT</version>
+            <version>1.7.10-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
             <type>jar</type>
         </dependency>
         <dependency>
             <groupId>com.ryanmichela</groupId>
             <artifactId>GiantCaves</artifactId>
-            <version>1.7.5-R01</version>
+            <version>1.7.10-R01</version>
             <scope>provided</scope>
             <type>jar</type>
         </dependency>

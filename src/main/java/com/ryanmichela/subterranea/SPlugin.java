@@ -5,13 +5,13 @@ import com.ryanmichela.subterranea.entity.SEntitySquid;
 import com.ryanmichela.subterranea.worldgen.SWorldGenLargeFeatureStart;
 import com.ryanmichela.subterranea.worldgen.SWorldGenPyramidPiece;
 import com.ryanmichela.subterranea.worldgen.SWorldProvider;
-import net.minecraft.server.v1_7_R3.*;
+import net.minecraft.server.v1_7_R4.*;
 import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.libs.joptsimple.OptionException;
 import org.bukkit.craftbukkit.libs.joptsimple.OptionParser;
 import org.bukkit.craftbukkit.libs.joptsimple.OptionSet;
-import org.bukkit.craftbukkit.v1_7_R3.CraftChunk;
-import org.bukkit.craftbukkit.v1_7_R3.CraftWorld;
+import org.bukkit.craftbukkit.v1_7_R4.CraftChunk;
+import org.bukkit.craftbukkit.v1_7_R4.CraftWorld;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.world.ChunkLoadEvent;
@@ -71,7 +71,7 @@ public class SPlugin extends JavaPlugin implements Listener {
         // As a solution, block data is cached until after the chunk is generated and then reapplied.
         if (event.isNewChunk() && ((CraftWorld)event.getChunk().getWorld()).getHandle().worldProvider instanceof SWorldProvider) {
             Chunk nmsChunk = ((CraftChunk)event.getChunk()).getHandle();
-            ChunkSection[] nmsSections = nmsChunk.i();
+            ChunkSection[] nmsSections = nmsChunk.getSections();
             ChunkSection[] chunkData = chunkDataCache.claimChunkData();
 
             for(int i = 0; i < 16; i++) {

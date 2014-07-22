@@ -1,7 +1,7 @@
 package com.ryanmichela.subterranea;
 
 import com.ryanmichela.subterranea.worldgen.SWorldGenCaves;
-import net.minecraft.server.v1_7_R3.*;
+import net.minecraft.server.v1_7_R4.*;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -72,6 +72,6 @@ public class SChunkProviderGenerate extends ChunkProviderGenerate {
         }
 
         Chunk localChunk = new Chunk(n, liftedWorld, blockData, xx, zz);
-        return localChunk.i();
+        return localChunk.getSections();
     }
 }

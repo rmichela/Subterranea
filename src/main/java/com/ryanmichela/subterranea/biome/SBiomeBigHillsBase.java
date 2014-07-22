@@ -2,7 +2,7 @@ package com.ryanmichela.subterranea.biome;
 
 import com.ryanmichela.subterranea.ReflectionUtil;
 import com.ryanmichela.subterranea.worldgen.SWorldProvider;
-import net.minecraft.server.v1_7_R3.*;
+import net.minecraft.server.v1_7_R4.*;
 
 import java.util.Random;
 
@@ -43,7 +43,7 @@ public class SBiomeBigHillsBase extends BiomeBigHills {
             int k1 = i + random.nextInt(16);
             int i2 = random.nextInt(64);
             int k2 = j + random.nextInt(16);
-            ((WorldGenerator) ReflectionUtil.getProtectedValue(this, "aC")).a(world, random, k1, i2, k2);
+            ((WorldGenerator) ReflectionUtil.getProtectedValue(this, "aC")).generate(world, random, k1, i2, k2);
         }
     }
 }
